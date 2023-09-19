@@ -5,7 +5,6 @@ from box import Box
 # from scoreboard import Scoreboard
 import time
 from colors import COLORS
-import math
 
 
 screen = Screen()
@@ -17,11 +16,13 @@ screen.tracer(0)
 paddle = Paddle((0, -360))
 ball = Ball()
 
-rows = 5
+rows = 2
 columns = 11
+boxes = []
 for i in range(rows):
     for j in range(columns):
-        exec(f"box_{j + 1 + i * columns} = Box(({-500 + j / columns * 1100}, {300 - i * 20}))")
+        boxes.append(Box((-500 + j / columns * 1100, 300 - i * 20)))
+        # exec(f"box_{j + 1 + i * columns} = Box(({-500 + j / columns * 1100}, {300 - i * 20}))")
 
 
 
@@ -48,9 +49,13 @@ while game_is_on:
         ball.bounce_y()
 
     # Detect collision with box
-    for i in range(55):
-        if ball.distance(locals()[f'box_{i + 1}']) <= 50 and abs(locals()[f'box_{i + 1}'].ycor() - ball.ycor()) == 20:
+    # for i in range(55):
+    #     if ball.distance(locals()[f'box_{i + 1}']) <= 50 and abs(locals()[f'box_{i + 1}'].ycor() - ball.ycor()) == 20:
+    #         ball.bounce_y()
+    for box in boxes:
+        if ball.distance(box) <= 50 and abs(box.ycor() - ball.ycor()) == 20:
             ball.bounce_y()
+            box.destroy_box()
 
 
 
