@@ -1,8 +1,12 @@
 from turtle import Screen, Turtle
 from paddle import Paddle
 from ball import Ball
+from box import Box
 # from scoreboard import Scoreboard
 import time
+from colors import COLORS
+import math
+
 
 screen = Screen()
 screen.bgcolor("black")
@@ -12,6 +16,14 @@ screen.tracer(0)
 
 paddle = Paddle((0, -360))
 ball = Ball()
+
+rows = 5
+columns = 11
+for i in range(rows):
+    for j in range(columns):
+        exec(f"box_{j + 1 + i * columns} = Box(({-500 + j / columns * 1100}, {300 - i * 20}))")
+
+
 
 screen.listen()
 screen.onkey(paddle.go_left, "Left")
@@ -34,7 +46,12 @@ while game_is_on:
     #Detect collision with paddle
     if ball.distance(paddle) <= 50 and ball.ycor() == -340:
         ball.bounce_y()
-        time.sleep(3)
+
+    # Detect collision with box
+    # for i in range(55):
+        # exec(f"if ball.distance(box_{i + 1}) <= 50 and abs(box_{i + 1}.ycor() - ball.ycor()) == 20:")
+    if ball.distance(box_52) <= 50 and abs(box_52.ycor() - ball.ycor()) == 20:
+        ball.bounce_y()
 
 
 
