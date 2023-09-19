@@ -48,10 +48,9 @@ while game_is_on:
         ball.bounce_y()
 
     # Detect collision with box
-    # for i in range(55):
-        # exec(f"if ball.distance(box_{i + 1}) <= 50 and abs(box_{i + 1}.ycor() - ball.ycor()) == 20:")
-    if ball.distance(box_52) <= 50 and abs(box_52.ycor() - ball.ycor()) == 20:
-        ball.bounce_y()
+    for i in range(55):
+        if ball.distance(locals()[f'box_{i + 1}']) <= 50 and abs(locals()[f'box_{i + 1}'].ycor() - ball.ycor()) == 20:
+            ball.bounce_y()
 
 
 
